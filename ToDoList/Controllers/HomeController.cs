@@ -21,9 +21,12 @@ namespace ToDoList.Controllers
     [HttpGet("/")]
     public async Task<ActionResult> Index()
     {
+      //Category logic
       Category[] cats = _db.Categories.ToArray();
       Dictionary<string, object[]> model = new Dictionary<string, object[]>();
       model.Add("categories", cats);
+      
+      //Item logic
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       if (currentUser != null)
